@@ -43,6 +43,25 @@ function App() {
         <option>No</option>
       </select>
       <br />
+      <label htmlFor="region">Which region do you belong to?</label>
+      <select id="region" value={region} onChange={e => setRegion(e.target.value)}>
+        <option>southeast</option>
+        <option>northwest</option>
+        <option>southwest</option>
+        <option>northeast</option>
+      </select>
+      <br />
+      <label htmlFor="age">What is your age?</label>
+      <input type="range" id="age" value={age} min={18} max={100} onChange={e => setAge(e.target.value)} />
+      <br />
+      <label htmlFor="bmi">What is your bmi?</label>
+      <input type="range" id="bmi" value={bmi} min={10} max={60} onChange={e => setBmi(e.target.value)} />
+      <br />
+      <label htmlFor="children">Number of children</label>
+      <input type="range" id="children" value={children} min={0} max={10} onChange={e => setChildren(e.target.value)} />
+      <br />
+      <button onClick={handlePredictClick}>Predict</button>
+      {prediction ? <div>Prediction: {prediction}</div> : null}
     </div>
     ); 
 } 
