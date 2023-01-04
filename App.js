@@ -3,6 +3,24 @@ import './App.css';
 import axios from 'axios';
 
 function App() {
+  const [servingUrl, setServingUrl] = useState('');
+  const [authToken, setAuthToken] = useState('');
+  const [sex, setSex] = useState('Male');
+  const [smoker, setSmoker] = useState('Yes');
+  const [region, setRegion] = useState('southeast');
+  const [age, setAge] = useState(18);
+  const [bmi, setBmi] = useState(10);
+  const [children, setChildren] = useState(0);
+  const [prediction, setPrediction] = useState(null);
+
+  const handlePredictClick = async () => {
+    const payload = {
+      signatures: {
+        inputs: [[{ data: `age,sex,bmi,children,smoker,region\n${age},${sex === 'Male' ? 1 : 0},${bmi},${children},${smoker === 'Yes' ? 1 : 0},${region === 'southeast' ? 2 : region === 'northwest' ? 3 : region === 'southwest' ? 1 : 0}` }]]
+      },
+      instances: [],
+      token: authToken
+    };
     return (
     <div className="App">
       <h1>Predict insurance charges</h1>
