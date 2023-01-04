@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
+const https = require('https');
 
 const app = express();
 app.use(bodyParser.json());
@@ -33,10 +34,12 @@ app.post('/predict', async (req, res) => {
     console.log(req.body)
     const response = await axios.post(DKUBE_URL, payload, { headers: { authorization: `Bearer ${DKUBE_TOKEN}` }, httpsAgent: agent, validateStatus: () => true });
     if (response.status === 200) {
+      res.header( "Access-Control-Allow-Origin" );
       res.send({ prediction: response.data.result });
-
+      console.log("success")
     } else {
       res.status(response.status).send({ error: response.statusText });
+      console.log("error")
     }
   } catch (error) {
     console.error(error);
